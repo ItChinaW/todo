@@ -1,0 +1,8 @@
+mongo:
+  port: 27017
+  user: todo
+  pass: wwwpg88com
+  dbname: todo
+  dbconnection: todolist
+system:
+  port: 3333
