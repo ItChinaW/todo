@@ -1,7 +1,7 @@
 mongo:
   port: 27017
   user: todo
-  pass: wwwpg88com
+  pass: 123456
   dbname: todo
   dbconnection: todolist
 system:
