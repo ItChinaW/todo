@@ -1,17 +1,27 @@
+import request from "../utils/request"
+
 export function getTodo() {
-    return axios.get("/v1/todo")
+    return request.get("/v1/todo")
 }
 
 export function addTodo(data) {
-    return axios.post("/v1/todo", data)
+    return request.post("/v1/todo", data)
 }
 
-export function putTodo(id, data) {
-    return axios.put("/v1/todo/" + id, {status: data})
+export function putTodo(id, data, title) {
+    return request.put("/v1/todo/" + id, {status: data, title: title})
 }
-
 
 export function deleteTodo(id) {
-    return axios.delete("/v1/todo/" + id)
+    return request.delete("/v1/todo/" + id)
+}
+
+//      user
+export function login(data) {
+    return request.post("/v1/user/login", data)
+}
+
+export function register(data) {
+    return request.post("/v1/user/register", data)
 }
 

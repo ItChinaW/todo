@@ -1,61 +1,47 @@
-"use strict";
-
-import Vue from 'vue';
-import axios from "axios";
-
-// Full config:  https://github.com/axios/axios#request-config
-// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
-let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  // timeout: 60 * 1000, // Timeout
-  // withCredentials: true, // Check cross-site Access-Control
-};
-
-const _axios = axios.create(config);
-
-_axios.interceptors.request.use(
-  function(config) {
-    // Do something before request is sent
-    return config;
-  },
-  function(error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-
-// Add a response interceptor
-_axios.interceptors.response.use(
-  function(response) {
-    // Do something with response data
-    return response;
-  },
-  function(error) {
-    // Do something with response error
-    return Promise.reject(error);
-  }
-);
-
-Plugin.install = function(Vue) {
-  Vue.axios = _axios;
-  window.axios = _axios;
-  Object.defineProperties(Vue.prototype, {
-    axios: {
-      get() {
-        return _axios;
-      }
-    },
-    $axios: {
-      get() {
-        return _axios;
-      }
-    },
-  });
-};
-
-Vue.use(Plugin)
-
-export default Plugin;
+// import Vue from 'vue';
+// import axios from "axios";
+// import Cache from 'axios-request-cache'
+//
+// let config = {};
+//
+// const _axios = axios.create(config);
+//
+// let cache = new Cache(axios)
+// cache.use({
+//     expire: 30000,
+//     storage: true,
+//     _axios, // 如果有自定义axios实例 需要将其传入 没有则不传
+//     requestConfigFn: config => {
+//         // 请求拦截自定义操作
+//         // 需要将config对象通过 Promise 返回 cache 中 也可以使用new Promise的写法
+//         return Promise.resolve(config)
+//     },
+//     responseConfigFn: res => {
+//         // 响应拦截的自定义操作
+//         if (!res.data.code) {
+//             // 需要将 res 通过 Promise 返回
+//             return Promise.resolve(res)
+//         }
+//     }
+// })
+//
+// Plugin.install = function (Vue) {
+//     Vue.axios = _axios;
+//     window.axios = _axios;
+//     Object.defineProperties(Vue.prototype, {
+//         axios: {
+//             get() {
+//                 return _axios;
+//             }
+//         },
+//         $axios: {
+//             get() {
+//                 return _axios;
+//             }
+//         },
+//     });
+// };
+//
+// Vue.use(Plugin)
+//
+// export default Plugin;

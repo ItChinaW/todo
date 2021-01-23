@@ -1,8 +1,12 @@
 mongo:
   port: 27017
   user: todo
-  pass: 123456
-  dbname: todo
-  dbconnection: todolist
+  pass: wwwpg88com
+  db_todo: todo
+  col_todo: todolist
+  col_user: userlist
 system:
   port: 3333
+token:
+  secret: wangkai666
+  expiresIn: 7200

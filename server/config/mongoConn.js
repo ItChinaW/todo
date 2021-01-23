@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const yaml = require("../utils/handleYaml")
-const url = "mongodb://" + yaml.mongo.user + ":" + yaml.mongo.pass + "@localhost:" + yaml.mongo.port;
-const dbname = yaml.mongo.dbname;
+const url = "mongodb://" + yaml.mongo.user + ":" + yaml.mongo.pass + "@47.100.93.97:" + yaml.mongo.port;
+const dbname = yaml.mongo.db_todo;
 let _db = null;
 
 async function connectDb() {

@@ -1,6 +1,10 @@
 import axios from 'axios'
+
 import {MessageBox} from 'element-ui'
+import { Message } from 'element-ui';
+
 import qs from 'qs'
+import store from "@/store";
 
 // 创建axios实例
 const service = axios.create({
@@ -8,7 +12,7 @@ const service = axios.create({
         return status >= 200 && status < 504 // 设置默认的合法的状态
     },
     baseURL: process.env.BASE_API, // api 的 base_url
-    timeout: 15000 // 请求超时时间
+    timeout: 15000, // 请求超时时间
 })
 service.defaults.retry = 3 // 请求重试次数
 service.defaults.retryDelay = 1000 // 请求重试时间间隔
@@ -19,7 +23,9 @@ service.interceptors.request.use(
     config => {
         config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
         config.headers['Accept-Language'] = 'zh-CN'
-        if (config.method === 'post') {
+        config.headers['Authorization'] = 'Bearer ' + localStorage.getItem("token")
+        config.headers['id'] = localStorage.getItem('id')
+        if (config.method === 'post' || config.method === 'put') {
             if (!config.data) { // 没有参数时，config.data为null，需要转下类型
                 config.data = {}
             }
@@ -35,13 +41,25 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
     response => {
-        if (response.data.message === '依赖服务访问异常') {
-            response.data.message = '网络访问异常，请重试～'
-        }
+        const token = localStorage.getItem("token")
+        const user = localStorage.getItem("user")
+
         if (response.status !== 200) {
+            if (response.status === 402) {
+                localStorage.clear()
+                store.commit("setUser", "")
+                store.commit('setToken', "")
+                store.commit("setStatus", false)
+            }
+            Message({
+                message: response.data.error
+            });
             return Promise.reject(response.data)
         } else {
-            return response.data
+            store.commit("setUser", user)
+            store.commit('setToken', token)
+            store.commit("setStatus", true)
+            return response
         }
     },
     err => {

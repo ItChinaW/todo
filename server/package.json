@@ -2,7 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express-jwt": "^6.0.0",
     "js-yaml": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",
     "webpack": "^5.12.0"
   },

@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import './plugins/axios'
 import App from './App.vue'
-import './plugins/element.js'
 import router from './router'
-import './plugins/axios.js'
+import store from './store/index'
 
-Vue.config.productionTip = true
+// 导入element
+import '@/plugins/element'
+
+// rem适配导入
+import "@/plugins/flexible"
+
+// 路由拦截
+import "@/permission"
 
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
